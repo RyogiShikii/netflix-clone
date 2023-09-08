@@ -1,5 +1,6 @@
 import React from "react";
 
+import FavoriteButton from "./FavoriteButton";
 import {BsFillPlayFill} from 'react-icons/bs';
 
 interface MovieCardProps {
@@ -91,6 +92,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
                 >
                     <BsFillPlayFill size={30}/>
                 </div>
+                <FavoriteButton movieId={data?.id} />
             </div>
 
             <p className="text-green-400 font-semibold mt-4">

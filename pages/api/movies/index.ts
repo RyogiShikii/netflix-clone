@@ -13,7 +13,7 @@ export default async function handeler(
   }
 
   try {
-    await serverAuth(req);
+    await serverAuth(req, res);
 
     const movies = await prismadb.movie.findMany();
 
