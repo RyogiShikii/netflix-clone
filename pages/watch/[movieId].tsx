@@ -8,7 +8,6 @@ const Watch = () => {
   const { movieId } = router.query;
 
   const { data } = useMovie(movieId as string);
-  console.log('123',data)
 
   return (
     <div className="bg-black w-screen h-screen">

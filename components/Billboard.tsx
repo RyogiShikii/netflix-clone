@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useCallback } from "react";
 import useBillboard from "@/hooks/useBillboard";
 
-import {AiOutlineInfoCircle} from 'react-icons/ai';
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import PlayButton from "./PlayButton";
+import useInfoModalStore from "@/hooks/useInfoModalStore";
 
 const Billboard: React.FC = () => {
-  const { data: movie } = useBillboard();
+  const { openModal } = useInfoModalStore();
+  const { data } = useBillboard();
+
+  const handleOpenModal = useCallback(() => {
+    
+    openModal(data?.id);
+  }, [openModal, data?.id]);
 
   return (
     <div className="relative h-[56.25vw]">
@@ -14,19 +21,20 @@ const Billboard: React.FC = () => {
         muted
         autoPlay
         loop
-        poster={movie?.thumbnailurl}
-        src={movie?.videoUrl}
+        poster={data?.thumbnailurl}
+        src={data?.videoUrl}
       ></video>
       <div className=" absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p className="text-white text-xl md:text-5xl lg:text-6xl h-full w-[50%] font-bold drop-shadow-lg">
-          {movie?.title}
+          {data?.title}
         </p>
         <p className="text-white text-[8px] md:text-lg lg:text-2xl w-[90%] md:w-[80%] lg:w-[50%] mt-3 md:mt-8 drop-shadow-lg">
-          {movie?.description}
+          {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-          <PlayButton movieId={movie?.id} />
+          <PlayButton movieId={data?.id} />
           <button
+            onClick={handleOpenModal}
             className="
           bg-white 
           text-white
@@ -46,7 +54,7 @@ const Billboard: React.FC = () => {
             hover:bg-opacity-20 
             transition"
           >
-            <AiOutlineInfoCircle className='mr-1'/>
+            <AiOutlineInfoCircle className="mr-1" />
             More Info
           </button>
         </div>
